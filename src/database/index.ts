@@ -8,11 +8,11 @@ const dataSource = new DataSource({
   username: "postgres",
   password: "@overpower",
   database: "rentalx",
-  entities: [],
+  entities: ["./src/modules/**/entities/*.ts"],
   migrations: ["./src/database/migration/*.ts"],
 });
 
-export function createConnection(host = "database"): Promise<DataSource> {
+export function createConnection(host = "localhost"): Promise<DataSource> {
   return dataSource.setOptions({ host }).initialize();
 }
 
