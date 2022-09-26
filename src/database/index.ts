@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { DataSource } from "typeorm";
 
 const dataSource = new DataSource({
@@ -7,6 +8,12 @@ const dataSource = new DataSource({
   username: "postgres",
   password: "@overpower",
   database: "rentalx",
+  entities: [],
+  migrations: ["./src/database/migration/*.ts"],
 });
 
-dataSource.initialize();
+export function createConnection(host = "database"): Promise<DataSource> {
+  return dataSource.setOptions({ host }).initialize();
+}
+
+export default dataSource;
