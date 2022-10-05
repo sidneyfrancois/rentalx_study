@@ -2,10 +2,11 @@ import "reflect-metadata";
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 import { router } from "./routes";
-import "../database";
+import createConnection from "../database/";
 import "../../container";
 import { AppError } from "../../errors/AppError";
 
+createConnection();
 const app = express();
 
 app.use(express.json());
