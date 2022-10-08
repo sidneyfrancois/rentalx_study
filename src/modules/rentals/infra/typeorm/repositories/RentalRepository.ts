@@ -10,20 +10,30 @@ class RentalRepository implements IRentalsRepository {
     this.repository = getRepository(Rental);
   }
 
-  create({
+  async create({
     user_id,
     car_id,
     expected_return_date,
   }: ICreateRentalDTO): Promise<Rental> {
-    throw new Error("Method not implemented.");
+    const rental = this.repository.create({
+      car_id,
+      expected_return_date,
+      user_id,
+    });
+
+    await this.repository.save(rental);
+
+    return rental;
   }
 
-  findOpenRentalByCar(car_id: string): Promise<Rental> {
-    throw new Error("Method not implemented.");
+  async findOpenRentalByCar(car_id: string): Promise<Rental> {
+    const openByCar = await this.repository.findOne({ car_id });
+    return openByCar;
   }
 
-  findOpenRentalByUser(user_id: string): Promise<Rental> {
-    throw new Error("Method not implemented.");
+  async findOpenRentalByUser(user_id: string): Promise<Rental> {
+    const openByUser = await this.repository.findOne({ user_id });
+    return openByUser;
   }
 }
 
